@@ -1,0 +1,7 @@
+sql导入数据库，修改data/config.php改成config.php并且修改数据库配置！
+
+默认账号密码admin   admin
+
+
+
+
