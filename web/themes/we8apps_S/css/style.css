@@ -1,0 +1,28 @@
+﻿.scrollbox{
+overflow-y: scroll;
+}
+.scrollbox::-webkit-scrollbar {
+width: 10px;
+}
+.scrollbox::-webkit-scrollbar-track {
+border-radius: 5px;
+background-color: #eee;
+}
+.scrollbox::-webkit-scrollbar-thumb {
+border-radius: 5px;
+background: #009688;
+}
+/*系统*/
+.color-default{
+    color: #009688!important;
+}
+.we7-btn-group .btn.active, .we7-btn-group .head .navbar-left>li.btn:hover, .head .we7-btn-group .navbar-left>li.btn:hover, .we7-btn-group .panel-menu .btn.list-group-item:not(.list-group-more):hover, .panel-menu .we7-btn-group .btn.list-group-item:not(.list-group-more):hover{
+    background-color: #009688!important;
+    color: #fff!important;
+}
+.nav-tabs>li>a{
+    color: #fff!important;	
+}
+.navbar .navbar-nav>li>a:hover{
+	color: #009688!important;
+}
