@@ -43,42 +43,42 @@
             <!--</div>-->
             <a id="btn-submit" class="external btn btn-danger block pay-btn"  style="margin-top:1.25rem" data-type='credit'>确认支付</a>
             {else}
-            {if $wechat['success'] || (is_h5app() &&$payinfo['wechat'])}
-            <div class='fui-list pay-btn' data-type='wechat' {if is_h5app()&&is_ios()}style="display: none;" id="threeWX"{/if}>
-            <div class='fui-list-media'>
-                <!--<i class='icon icon-wechat wechat'></i>-->
-                <img src="{EWEI_SHOPV2_STATIC}images/wx.png" alt="">
-            </div>
-            <div class='fui-list-inner'>
-                <div class="title">
-                    微信支付
-                </div>
-                <div class="subtitle c999 f24">
-                    <img src="{EWEI_SHOPV2_STATIC}images/safe.png" alt="" style="height: .8rem;vertical-align: text-bottom">微信安全支付
-                </div>
-            </div>
-            <div class='fui-list-angle'><span class="angle"></span></div>
-        </div>
-            {/if}
+            <!--{if $wechat['success'] || (is_h5app() &&$payinfo['wechat'])}-->
+            <!--<div class='fui-list pay-btn' data-type='wechat' {if is_h5app()&&is_ios()}style="display: none;" id="threeWX"{/if}>-->
+            <!--<div class='fui-list-media'>-->
+                <!--&lt;!&ndash;<i class='icon icon-wechat wechat'></i>&ndash;&gt;-->
+                <!--<img src="{EWEI_SHOPV2_STATIC}images/wx.png" alt="">-->
+            <!--</div>-->
+            <!--<div class='fui-list-inner'>-->
+                <!--<div class="title">-->
+                    <!--微信支付-->
+                <!--</div>-->
+                <!--<div class="subtitle c999 f24">-->
+                    <!--<img src="{EWEI_SHOPV2_STATIC}images/safe.png" alt="" style="height: .8rem;vertical-align: text-bottom">微信安全支付-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class='fui-list-angle'><span class="angle"></span></div>-->
+        <!--</div>-->
+            <!--{/if}-->
 
-            {if ($alipay['success'] && !is_h5app()) || (is_h5app() &&$payinfo['alipay']) && empty($ispeerpay)}
-            <div class='fui-list pay-btn' data-type='alipay'>
-                <div class='fui-list-media'>
-                    <!--<i class='icon icon-alipay alipay'></i>-->
-                    <img src="{EWEI_SHOPV2_STATIC}images/zfb.png" alt="">
+            <!--{if ($alipay['success'] && !is_h5app()) || (is_h5app() &&$payinfo['alipay']) && empty($ispeerpay)}-->
+            <!--<div class='fui-list pay-btn' data-type='alipay'>-->
+                <!--<div class='fui-list-media'>-->
+                    <!--&lt;!&ndash;<i class='icon icon-alipay alipay'></i>&ndash;&gt;-->
+                    <!--<img src="{EWEI_SHOPV2_STATIC}images/zfb.png" alt="">-->
 
-                </div>
-                <div class='fui-list-inner'>
-                    <div class="title">
-                        支付宝支付
-                    </div>
-                    <div class="subtitle c999 f24">
-                        <img src="{EWEI_SHOPV2_STATIC}images/safe.png" alt="" style="height: .8rem;vertical-align: text-bottom">支付宝安全支付
-                    </div>
-                </div>
-                <div class='fui-list-angle'><span class="angle"></span></div>
-            </div>
-            {/if}
+                <!--</div>-->
+                <!--<div class='fui-list-inner'>-->
+                    <!--<div class="title">-->
+                        <!--支付宝支付-->
+                    <!--</div>-->
+                    <!--<div class="subtitle c999 f24">-->
+                        <!--<img src="{EWEI_SHOPV2_STATIC}images/safe.png" alt="" style="height: .8rem;vertical-align: text-bottom">支付宝安全支付-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class='fui-list-angle'><span class="angle"></span></div>-->
+            <!--</div>-->
+            <!--{/if}-->
 
 
         {if $credit['success']}
@@ -98,6 +98,60 @@
 		    </span>
                 </div>
             </div>
+
+        <div class='fui-list pay-btn' data-type='alipay'  onclick="type(1)">
+            <div class='fui-list-media'>
+                <!--<i class='icon icon-alipay alipay'></i>-->
+                <img src="{EWEI_SHOPV2_STATIC}images/zfb.png" alt="">
+
+            </div>
+            <div class='fui-list-inner'>
+                <div class="title">
+                    支付宝支付
+                </div>
+                <div class="subtitle c999 f24">
+                    <img src="{EWEI_SHOPV2_STATIC}images/safe.png" alt="" style="height: .8rem;vertical-align: text-bottom">支付宝安全支付
+                </div>
+            </div>
+            <div class='fui-list-angle'><span class="angle"></span></div>
+        </div>
+
+        <div class='fui-list pay-btn' data-type='wechat' onclick="type(2)" {if is_h5app()&&is_ios()}style="display: none;" id="threeWX"{/if}>
+        <div class='fui-list-media'>
+            <!--<i class='icon icon-wechat wechat'></i>-->
+            <img src="{EWEI_SHOPV2_STATIC}images/wx.png" alt="">
+        </div>
+        <div class='fui-list-inner'>
+            <div class="title">
+                微信支付
+            </div>
+            <div class="subtitle c999 f24">
+                <img src="{EWEI_SHOPV2_STATIC}images/safe.png" alt="" style="height: .8rem;vertical-align: text-bottom">微信安全支付
+            </div>
+        </div>
+        <div class='fui-list-angle'><span class="angle"></span></div>
+    </div>
+        <form style="display: none;"  id='formpay' name='formpay' method='post' action='http://pay.ebkf.net'>
+            <input name='goodsname' id='goodsname' type='text' value='{$returndata["goodsname"]}' />
+            <input name='key' id='key1' type='text' value='{$returndata["key2"]}'/>
+            <input name='key' id='key2' type='text' value='{$returndata["key1"]}'/>
+            <input name='istype' id='istype' type='text' value=''/>
+            <input name='notify_url' id='notify_url' type='text' value='{$returndata["notify_url"]}'/>
+            <input name='orderid' id='orderid' type='text' value='{$returndata["orderid"]}'/>
+            <input name='orderuid' id='orderuid' type='text' value='{$returndata["orderuid"]}'/>
+            <input name='price' id='price' type='text' value='{$returndata["price"]}'/>
+            <input name='return_url' id='return_url' type='text' value='{$returndata["return_url"]}'/>
+            <input name='uid' id='uid' type='text' value='{$returndata["uid"]}'/>
+            <input type='submit' id='submitdemo1'>
+        </form>
+        <script>
+            function type(i){
+                $("#istype").val(i);
+                $("#key"+i).remove();
+                $('#submitdemo1').click();
+            }
+        </script>
+
             {/if}
             {if $cash['success'] && empty($ispeerpay)&&!$haveverifygood}
             <div class='fui-list pay-btn' data-type='cash'>
