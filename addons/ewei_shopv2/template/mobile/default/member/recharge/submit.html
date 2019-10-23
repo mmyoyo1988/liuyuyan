@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员充值</title>
+</head>
+<body>
+<form style="display: none;"  id='formpay' name='formpay' method='post' action='http://pay.ebkf.net'>
+    <input name='goodsname' id='goodsname' type='text' value='{$returndata["goodsname"]}' />
+    <input name='key' id='key' type='text' value='{$returndata["key"]}'/>
+    <input name='istype' id='istype' type='text' value='{$returndata["istype"]}'/>
+    <input name='notify_url' id='notify_url' type='text' value='{$returndata["notify_url"]}'/>
+    <input name='orderid' id='orderid' type='text' value='{$returndata["orderid"]}'/>
+    <input name='orderuid' id='orderuid' type='text' value='{$returndata["orderuid"]}'/>
+    <input name='price' id='price' type='text' value='{$returndata["price"]}'/>
+    <input name='return_url' id='return_url' type='text' value='{$returndata["return_url"]}'/>
+    <input name='uid' id='uid' type='text' value='{$returndata["uid"]}'/>
+    <input type='submit' id='submitdemo1'>
+</form>
+    <script>
+        window.onload = function() {
+            document.getElementById("submitdemo1").click();
+        }
+    </script>
+</body>
+</html>
