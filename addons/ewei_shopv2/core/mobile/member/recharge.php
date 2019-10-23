@@ -30,9 +30,9 @@ class Recharge_EweiShopV2Page extends MobileLoginPage {
 
         //当前余额
         $credit = m('member')->getCredit($_W['openid'], 'credit2');
-
+        $paycat['success'] = true;
         //微信支付
-        $wechat = array('success' => false);
+        $wechat = array('success' => true);
         if (is_weixin()) {
             //微信环境
             $data = m('common')->getSysset('pay');
@@ -61,9 +61,8 @@ class Recharge_EweiShopV2Page extends MobileLoginPage {
                 $wechat['success'] = true;
             }
         }
-
         //支付宝
-        $alipay = array('success' => false);
+        $alipay = array('success' => true);
         if (isset($set['pay']['alipay']) && $set['pay']['alipay'] == 1) {
             //如果开启支付宝
             load()->model('payment');
@@ -97,7 +96,82 @@ class Recharge_EweiShopV2Page extends MobileLoginPage {
         include $this->template();
     }
 
-    function submit() {
+    /**
+     * 会员充值
+     * 第三方支付猫
+     */
+    function submit(){
+        global $_W;
+        $set = $_W['shopset'];
+        if (empty($set['trade']['minimumcharge'])||$set['trade']['minimumcharge']<=0) {
+            $minimumcharge = 1;
+        } else {
+            $minimumcharge = $set['trade']['minimumcharge'];
+        }
+
+        $money = floatval($_POST['price']);
+        if ($money <= 0) {
+            show_json(0, '充值金额必须大于0!');
+        }
+        if ($money < $minimumcharge && $minimumcharge > 0) {
+            show_json(0, '最低充值金额为' .$minimumcharge . '元!');
+        }
+        if (empty($money)) {
+            show_json(0, '请填写充值金额!');
+        }
+
+        pdo_delete('ewei_shop_member_log', array('openid' => $_W['openid'], 'status' => 0, 'type' => 0, 'uniacid' => $_W['uniacid']));
+        $logno = m('common')->createNO('member_log', 'logno', 'RC');
+        //日志
+        $log = array(
+            'uniacid' => $_W['uniacid'],
+            'logno' => $logno,
+            'title' => $set['shop']['name'] . "会员充值",
+            'openid' => $_W['openid'],
+            'money'=>$money,
+            'type' => 0,
+            'createtime' => time(),
+            'status' => 0,
+//            'couponid' => intval($_GPC['couponid'])
+        );
+        pdo_insert('ewei_shop_member_log', $log);
+        $logid = pdo_insertid();
+        $type = $_POST['paytype'];
+
+        if (empty($logid) || (int)$logid<1) {
+            show_json(0, '充值订单创建失败请重试!');
+        }
+//        if(is_h5app()){
+//            show_json(1, array(
+//                'logno'=>$logno,
+//                'money'=>$money
+//            ));
+//        }
+        $price = $money;
+        $orderuid = $_W['uniacid'];
+        $goodsname = "null";
+        $orderid = $logno;    //每次有任何参数变化，订单号就变一个吧。
+        $uid = "5147";//"此处填写平台的uid";
+        $token = "sRwW3R5KBkZrSqQewqurh5wFKaV5YKW5";//"此处填写平台的Token";
+        $return_url = $_W['siteroot'] . 'addons/ewei_shopv2/payment/paycat/payreturn.php';
+        $notify_url = $_W['siteroot'] . 'addons/ewei_shopv2/payment/paycat/notify.php';
+        //支付渠道1支付宝，2微信
+        $key = md5($goodsname. $type . $notify_url . $orderid . $orderuid . $price . $return_url . $token . $uid);
+        $returndata['goodsname'] = $goodsname;
+        $returndata['key'] = $key;
+        $returndata['notify_url'] = $notify_url;
+        $returndata['orderid'] = $orderid;
+        $returndata['orderuid'] =$orderuid;
+        $returndata['price'] = $price;
+        $returndata['istype'] = $type;
+        $returndata['return_url'] = $return_url;
+        $returndata['uid'] = $uid;
+        include $this->template();
+    }
+
+    function submit1() {
+        var_dump($_POST);
+        exit;
         global $_W, $_GPC;
         $set = $_W['shopset'];
 

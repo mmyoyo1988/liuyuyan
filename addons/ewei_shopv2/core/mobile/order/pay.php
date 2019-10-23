@@ -317,15 +317,18 @@ class Pay_EweiShopV2Page extends MobileLoginPage
 				plugin_run("seckill::getSeckill", $data["goodsid"], $data["optionid"], true, trim($_W["openid"]));
 			}
 		}
+
+		//busi_id:商户编号,operator_id: 操作员编号,terminal_id: 设备编号,
 		$user = unserialize($order['address']);
 		$price = $order['price'];
 		$orderuid = $user['realname'];
-		$goodsname = "一只小测试";
+		$goodsname = "null";
 		$orderid = $order['ordersn'];    //每次有任何参数变化，订单号就变一个吧。
 		$uid = "5147";//"此处填写平台的uid";
 		$token = "sRwW3R5KBkZrSqQewqurh5wFKaV5YKW5";//"此处填写平台的Token";
 		$return_url = $_W['siteroot'] . 'addons/ewei_shopv2/payment/paycat/payreturn.php';
-		$notify_url = $_W['siteroot'] . 'addons/ewei_shopv2/payment/paycat/paynotify.php';
+		$notify_url = $_W['siteroot'] . 'addons/ewei_shopv2/payment/paycat/notify.php';
+		//支付渠道1支付宝，2微信
 		$key1 = md5($goodsname. 1 . $notify_url . $orderid . $orderuid . $price . $return_url . $token . $uid);
 		$key2 = md5($goodsname. 2 . $notify_url . $orderid . $orderuid . $price . $return_url . $token . $uid);
 		$returndata['goodsname'] = $goodsname;
